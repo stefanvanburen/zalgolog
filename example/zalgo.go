@@ -7,6 +7,7 @@ import (
 
 func main() {
 	log.SetHandler(zalgolog.Default)
+	log.Info("zalgolog")
 	for {
 		log.WithFields(log.Fields{
 			"animal": "walrus",
