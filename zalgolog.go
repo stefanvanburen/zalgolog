@@ -12,6 +12,7 @@ import (
 	"github.com/kortschak/zalgo"
 )
 
+// Handler struct for implementing the log.Handler interface.
 type Handler struct {
 	mu   sync.Mutex
 	z    *zalgo.Corrupter
@@ -19,9 +20,11 @@ type Handler struct {
 	h    log.Handler
 }
 
-var Default = New(os.Stderr)
+// Default allows for a simple way to get a working zalgolog Handler.
+var Default = New(os.Stderr, nil)
 
-func New(w io.Writer) *Handler {
+// New returns a zalgolog Handler ready for writing. Default passthrough is to the standard text handler.
+func New(w io.Writer, h log.Handler) *Handler {
 	pain := bytes.NewBuffer(nil)
 	z := zalgo.NewCorrupter(pain)
 
@@ -32,13 +35,21 @@ func New(w io.Writer) *Handler {
 		return false
 	}
 
+	var handler log.Handler
+	if h == nil {
+		handler = text.New(w)
+	} else {
+		handler = h
+	}
+
 	return &Handler{
 		pain: pain,
 		z:    z,
-		h:    text.New(w),
+		h:    handler,
 	}
 }
 
+// HandleLog implements the Handler interface.
 func (h *Handler) HandleLog(e *log.Entry) error {
 	h.mu.Lock()
 	defer h.mu.Unlock()
