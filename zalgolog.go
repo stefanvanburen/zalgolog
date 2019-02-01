@@ -28,7 +28,7 @@ func New(w io.Writer, h log.Handler) *Handler {
 	pain := bytes.NewBuffer(nil)
 	z := zalgo.NewCorrupter(pain)
 
-	z.Zalgo = func(n int, r rune, z *zalgo.Corrupter) bool {
+	z.Zalgo = func(_ int, r rune, z *zalgo.Corrupter) bool {
 		z.Up += 0.1
 		z.Middle += complex(0.01, 0.01)
 		z.Down += complex(real(z.Down)*0.1, 0)
@@ -60,7 +60,7 @@ func (h *Handler) HandleLog(e *log.Entry) error {
 	h.z.Down = complex(0.001, 0.3)
 
 	s := e.Message
-	_, _ = fmt.Fprintf(h.z, s)
+	_, _ = fmt.Fprint(h.z, s)
 	e.Message = h.pain.String()
 
 	return h.h.HandleLog(e)
