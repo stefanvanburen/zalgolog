@@ -64,7 +64,7 @@ func (h *Handler) HandleLog(e *log.Entry) error {
 
 	_, err := fmt.Fprint(h.z, s)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	e.Message = h.pain.String()
