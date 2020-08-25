@@ -32,6 +32,7 @@ func New(w io.Writer, h log.Handler) *Handler {
 		z.Up += 0.1
 		z.Middle += complex(0.01, 0.01)
 		z.Down += complex(real(z.Down)*0.1, 0)
+
 		return false
 	}
 
@@ -60,7 +61,12 @@ func (h *Handler) HandleLog(e *log.Entry) error {
 	h.z.Down = complex(0.001, 0.3)
 
 	s := e.Message
-	_, _ = fmt.Fprint(h.z, s)
+
+	_, err := fmt.Fprint(h.z, s)
+	if err != nil {
+		return nil
+	}
+
 	e.Message = h.pain.String()
 
 	return h.h.HandleLog(e)
