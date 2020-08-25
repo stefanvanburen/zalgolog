@@ -12,6 +12,9 @@ import (
 	"github.com/kortschak/zalgo"
 )
 
+// Ensure Handler implements the log.Handler interface.
+var _ log.Handler = &Handler{}
+
 // Handler struct for implementing the log.Handler interface.
 type Handler struct {
 	mu   sync.Mutex
