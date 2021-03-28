@@ -1,3 +1,5 @@
+// Package zalgolog implements handler for apex/log that rewrites
+// the message of an entry with zalğ͔o-ified text.
 package zalgolog
 
 import (
@@ -26,12 +28,13 @@ type Handler struct {
 // Default allows for a simple way to get a working zalgolog Handler.
 var Default = New(os.Stderr, nil)
 
-// New returns a zalgolog Handler ready for writing. Default passthrough is to the standard text handler.
+// New returns a zalgolog Handler ready for writing.
+// Default passthrough is to the standard text handler.
 func New(w io.Writer, h log.Handler) *Handler {
 	pain := bytes.NewBuffer(nil)
 	z := zalgo.NewCorrupter(pain)
 
-	z.Zalgo = func(_ int, r rune, z *zalgo.Corrupter) bool {
+	z.Zalgo = func(_ int, _ rune, z *zalgo.Corrupter) bool {
 		z.Up += 0.1
 		z.Middle += complex(0.01, 0.01)
 		z.Down += complex(real(z.Down)*0.1, 0)
