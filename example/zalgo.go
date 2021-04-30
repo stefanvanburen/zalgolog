@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/apex/log"
-	"github.com/svanburen/zalgolog"
+	"github.com/stefanvanburen/zalgolog"
 )
 
 func main() {

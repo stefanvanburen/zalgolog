@@ -1,7 +1,7 @@
 # zalğ͔ol̻o̶g͌
 Zalgo handler for [apex/log](https://github.com/apex/log)
 
-[godoc](https://pkg.go.dev/github.com/svanburen/zalgolog)
+[![GoDoc](https://godoc.org/github.com/stefanvanburen/zalgolog?status.svg)](https://pkg.go.dev/github.com/stefanvanburen/zalgolog?tab=doc)
 
 Heavily based on [aybabtme/logzalgo](https://github.com/aybabtme/logzalgo)
 

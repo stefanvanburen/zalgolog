@@ -1,4 +1,4 @@
-module github.com/svanburen/zalgolog
+module github.com/stefanvanburen/zalgolog
 
 go 1.15
 
